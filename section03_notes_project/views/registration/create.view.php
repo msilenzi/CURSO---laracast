@@ -26,7 +26,7 @@ req_view('partials/nav.php');
           <label for="password" class="block text-sm/6 font-medium text-gray-900">Password</label>
         </div>
         <div class="mt-2">
-          <input id="password" type="text" name="password" required autocomplete="current-password" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" value="<?= $_POST['password'] ?? '' ?>" />
+          <input id="password" type="password" name="password" required autocomplete="current-password" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" value="<?= $_POST['password'] ?? '' ?>" />
           <?php if (isset($errors['password'])): ?>
             <p class="text-sm mt-1 text-red-600/80"><?= $errors['password'] ?></p>
           <?php endif ?>
