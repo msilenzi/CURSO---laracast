@@ -19,6 +19,10 @@ function req_view(string $path, $attr = []) {
   return req_base("views/{$path}", $attr);
 }
 
+function req_http(string $path, $attr = []) {
+  return req_base("http/{$path}", $attr);
+}
+
 //
 // UTILS:
 
