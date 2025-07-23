@@ -1,9 +1,8 @@
 <?php
 
-use core\App;
 use core\Authenticator;
-use core\Database;
 use core\LoginAttemptResult;
+use core\Session;
 use http\forms\LoginForm;
 
 $email = $_POST['email'];
@@ -12,23 +11,17 @@ $password = $_POST['password'];
 $form = new LoginForm();
 
 if (!$form->validate($email, $password)) {
-  return req_view('sessions/create.view.php', ['errors' => $form->getErrors()]);
+  redirectWithErrors($form->getErrors());
 }
-
-$db = App::resolve(Database::class);
 
 $auth = new Authenticator();
 
 switch ($auth->attempt($email, $password)) {
   case LoginAttemptResult::WrongEmail:
-    return req_view('sessions/create.view.php', ['errors' => [
-        'email' => 'No account found for this email address'
-      ]]);
+    redirectWithErrors(['email' => 'No account found for this email address']);
 
   case LoginAttemptResult::WrongPassword:
-    return req_view('sessions/create.view.php', ['errors' => [
-        'password' => 'Wrong password'
-      ]]);
+    redirectWithErrors(['password' => 'Wrong password']);
 
   case LoginAttemptResult::Success:
     $auth->login(['email' => $email]);
@@ -36,4 +29,10 @@ switch ($auth->attempt($email, $password)) {
 
   default:
     throw new \Error("Invalid LoginAttemptResult value");
+}
+
+function redirectWithErrors($errors) {
+  Session::flash('errors', $errors);
+  Session::flash('old', ['email' => $_POST['email']]);
+  redirect('/login');
 }
