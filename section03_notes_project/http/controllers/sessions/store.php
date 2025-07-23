@@ -1,8 +1,10 @@
 <?php
 
 use core\App;
+use core\Authenticator;
 use core\Database;
-use Http\Forms\LoginForm;
+use core\LoginAttemptResult;
+use http\forms\LoginForm;
 
 $email = $_POST['email'];
 $password = $_POST['password'];
@@ -15,25 +17,24 @@ if (!$form->validate($email, $password)) {
 
 $db = App::resolve(Database::class);
 
-$user = $db->query("SELECT * FROM users WHERE email = :email", [
-  "email" => $email
-])->findOne();
+$auth = new Authenticator();
 
+switch ($auth->attempt($email, $password)) {
+  case LoginAttemptResult::WrongEmail:
+    return req_view('sessions/create.view.php', ['errors' => [
+        'email' => 'No account found for this email address'
+      ]]);
 
-if (!$user) {
-  return req_view('sessions/create.view.php', ['errors' => [
-    'email' => 'No account found for this email address'
-  ]]);
+  case LoginAttemptResult::WrongPassword:
+    return req_view('sessions/create.view.php', ['errors' => [
+        'password' => 'Wrong password'
+      ]]);
+
+  case LoginAttemptResult::Success:
+    $auth->login(['email' => $email]);
+    header('location: /');
+    exit();
+
+  default:
+    throw new \Error("Invalid LoginAttemptResult value");
 }
-
-if (!password_verify($password, $user['password'])) {
-  return req_view('sessions/create.view.php', ['errors' => [
-    'password' => 'Wrong password'
-  ]]);
-}
-
-
-login(['email' => $email]);
-
-header('location: /');
-exit();
