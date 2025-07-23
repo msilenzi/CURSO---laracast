@@ -1,24 +1,16 @@
 <?php
 
-use core\Validator;
 use core\App;
 use core\Database;
+use Http\Forms\LoginForm;
 
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-$errors = [];
+$form = new LoginForm();
 
-if (!Validator::email($email)) {
-  $errors['email'] = 'Please provide a valid email address';
-}
-
-if (!Validator::string($password, 7, 255)) {
-  $errors['password'] = 'Please provide a password of at least 7 characters';
-}
-
-if (!empty($errors)) {
-  return req_view('sessions/create.view.php', ['errors' => $errors]);
+if (!$form->validate($email, $password)) {
+  return req_view('sessions/create.view.php', ['errors' => $form->getErrors()]);
 }
 
 $db = App::resolve(Database::class);
