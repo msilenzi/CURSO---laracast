@@ -1,5 +1,7 @@
 <?php
 
+use core\Session;
+
 session_start();
 
 const BASE_PATH = __DIR__ . "/../";
@@ -21,3 +23,5 @@ $router->route(
   $current_route,
   $_POST['__req_method'] ?? $_SERVER['REQUEST_METHOD']
 );
+
+Session::flushFlash();

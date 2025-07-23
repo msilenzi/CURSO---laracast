@@ -2,8 +2,10 @@
 
 namespace core\middlewares;
 
+use core\Session;
+
 class Auth {
   public function handle() {
-    if (!isset($_SESSION['user'])) redirect();
+    if (!Session::has('user')) redirect();
   }
 }
