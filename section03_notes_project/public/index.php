@@ -1,6 +1,7 @@
 <?php
 
 use core\Session;
+use core\ValidationException;
 
 session_start();
 
@@ -15,13 +16,21 @@ spl_autoload_register(function ($class) {
 
 req_data('bootstrap.php');
 
+// Crear el router y cargar las rutas:
 $router = new \core\Router();
 $routes = req_data('routes.php', ["router" => $router]);
-$current_route = parse_url($_SERVER['REQUEST_URI'])['path'];
 
-$router->route(
-  $current_route,
-  $_POST['__req_method'] ?? $_SERVER['REQUEST_METHOD']
-);
+// Rutear (try) y manejar dinámicamente los errores de validación en los
+// formularios (catch ValidationException):
+try {
+  $router->route(
+    parse_url($_SERVER['REQUEST_URI'])['path'],
+    $_POST['__req_method'] ?? $_SERVER['REQUEST_METHOD']
+  );
+} catch (ValidationException $e) {
+  Session::flash('errors', $e->errors);
+  Session::flash('old', $e->old);
+  return redirect(prevUrl());
+}
 
-Session::flushFlash();
+core\Session::flushFlash();

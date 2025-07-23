@@ -32,6 +32,10 @@ function abort(int $code = 404): never {
   die();
 }
 
+function prevUrl(): string {
+  return $_SERVER['HTTP_REFERER'];
+}
+
 function authorize($cond, $status = core\HttpResponse::FORBIDDEN): void {
   if (!$cond) abort($status);
 }
