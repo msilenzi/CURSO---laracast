@@ -19,7 +19,9 @@ function getLinkClassName(string $path): string
           <div class="ml-10 flex items-baseline space-x-4">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
             <a href="/" class="rounded-md px-3 py-2 text-sm font-medium <?= getLinkClassName('/') ?>">Home</a>
-            <a href="/notes" class="rounded-md px-3 py-2 text-sm font-medium <?= getLinkClassName('/notes') ?>">Notes</a>
+            <?php if (isset($_SESSION['user'])): ?>
+              <a href="/notes" class="rounded-md px-3 py-2 text-sm font-medium <?= getLinkClassName('/notes') ?>">Notes</a>
+            <?php endif ?>
             <a href="/about" class="rounded-md px-3 py-2 text-sm font-medium <?= getLinkClassName('/about') ?>">About</a>
             <a href="/contact" class="rounded-md px-3 py-2 text-sm font-medium <?= getLinkClassName('/contact') ?>">Contact</a>
           </div>
@@ -37,8 +39,8 @@ function getLinkClassName(string $path): string
           </button>
 
           <!-- Profile dropdown -->
-          <div class="relative ml-3">
-            <?php if (isset($_SESSION['user'])) : ?>
+          <?php if (isset($_SESSION['user'])) : ?>
+            <div class="relative ml-3">
               <div>
                 <button type="button" class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                   <span class="absolute -inset-1.5"></span>
@@ -46,10 +48,21 @@ function getLinkClassName(string $path): string
                   <img class="size-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                 </button>
               </div>
-            <?php else : ?>
-              <a href="/register" class="text-sm font-medium text-white">Register</a>
-            <?php endif; ?>
-          </div>
+            </div>
+
+            <!-- 
+              No se debería usar <a> para cerrar sesión por la idempotencia de HTTP GET:
+              <a href="/logout" class="rounded-md px-3 py-2 ms-2 text-sm font-medium">Log out</a>
+            -->
+            <form method="POST" action="/sessions">
+              <input type="hidden" name="__req_method" value="DELETE" />
+              <button type="submit" class="rounded-md px-3 py-2 ms-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Log out</button>
+            </form>
+
+          <?php else : ?>
+            <a href="/register" class="rounded-md px-3 py-2 text-sm font-medium <?= getLinkClassName('/register') ?>">Register</a>
+            <a href="/login" class="rounded-md px-3 py-2 text-sm font-medium <?= getLinkClassName('/login') ?>">Log In</a>
+          <?php endif; ?>
         </div>
       </div>
 

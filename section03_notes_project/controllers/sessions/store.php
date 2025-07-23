@@ -18,7 +18,7 @@ if (!Validator::string($password, 7, 255)) {
 }
 
 if (!empty($errors)) {
-  return req_view('registration/create.view.php', ['errors' => $errors]);
+  return req_view('sessions/create.view.php', ['errors' => $errors]);
 }
 
 $db = App::resolve(Database::class);
@@ -28,16 +28,18 @@ $user = $db->query("SELECT * FROM users WHERE email = :email", [
 ])->findOne();
 
 
-if ($user) {
-  return req_view('registration/create.view.php', ['errors' => [
-    'email' => 'Email already in use. Try logging in or use another email.'
+if (!$user) {
+  return req_view('sessions/create.view.php', ['errors' => [
+    'email' => 'No account found for this email address'
   ]]);
 }
 
-$db->query('INSERT INTO users (email, password) VALUES (:email, :password)', [
-  'email' => $email,
-  'password' => password_hash($password, PASSWORD_DEFAULT) // PASSWORD_BCRYPT
-]);
+if (!password_verify($password, $user['password'])) {
+  return req_view('sessions/create.view.php', ['errors' => [
+    'password' => 'Wrong password'
+  ]]);
+}
+
 
 login(['email' => $email]);
 
