@@ -26,4 +26,4 @@ $db->query('INSERT INTO notes (title, body, user_id) VALUES (?, ?, ?)', [
   $_POST['body'],
   1
 ]);
-header('location: /notes');
+redirect('/notes');

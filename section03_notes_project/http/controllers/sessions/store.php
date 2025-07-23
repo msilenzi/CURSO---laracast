@@ -32,8 +32,7 @@ switch ($auth->attempt($email, $password)) {
 
   case LoginAttemptResult::Success:
     $auth->login(['email' => $email]);
-    header('location: /');
-    exit();
+    redirect();
 
   default:
     throw new \Error("Invalid LoginAttemptResult value");

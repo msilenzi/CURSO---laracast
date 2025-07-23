@@ -46,3 +46,8 @@ function dd($value): never {  // Dump & Die
 function isCurrentPath(string $path): bool {
   return parse_url($_SERVER['REQUEST_URI'])['path'] === $path;
 }
+
+function redirect(string $path = '/') {
+  header("location: {$path}");
+  exit();
+}

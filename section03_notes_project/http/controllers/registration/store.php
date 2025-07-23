@@ -41,6 +41,4 @@ $db->query('INSERT INTO users (email, password) VALUES (:email, :password)', [
 ]);
 
 (new Authenticator())->login(['email' => $email]);
-
-header('location: /');
-exit();
+redirect();

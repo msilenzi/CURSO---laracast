@@ -4,9 +4,6 @@ namespace core\middlewares;
 
 class Auth {
   public function handle() {
-    if (!isset($_SESSION['user'])) {
-      header('location: /');
-      exit();
-    }
+    if (!isset($_SESSION['user'])) redirect();
   }
 }
