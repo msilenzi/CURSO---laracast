@@ -1,0 +1,10 @@
+{
+    "name": "nwtf/section03_notes_project",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "core\\": "core/",
+            "http\\": "http/"
+        }
+    }
+}
