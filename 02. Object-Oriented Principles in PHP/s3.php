@@ -26,7 +26,6 @@ try {
         'Bucket' => $_ENV['S3_BUCKET'],
         'Key' => $filePath,
         'Body' => $contents,
-        'ACL' => 'public-read',
     ]);
     echo "Done";
 } catch (S3Exception $e) {
