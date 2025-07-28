@@ -2,25 +2,10 @@
 
 namespace App\Models;
 
-class Job {
+use Illuminate\Database\Eloquent\Model;
 
-    public function __construct(
-        private int $id,
-        private string $title,
-        private string $salary
-    ) {}
+class Job extends Model {
+    protected $table = "job_listings";
 
-    public function getId(): int {
-        return $this->id;
-    }
-
-    public function getTitle(): string {
-        return $this->title;
-    }
-
-    public function getSalary(): string {
-        return $this->salary;
-    }
-
-
+    protected $fillable = ['title', 'salary'];
 }

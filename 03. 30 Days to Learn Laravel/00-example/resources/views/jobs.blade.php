@@ -5,8 +5,8 @@
     <ul>
         @foreach($jobs as $job)
             <li class="mb-2">
-                <a href="/jobs/{{$job->getId()}}" class="hover:underline">
-                    <strong>{{$job->getTitle()}}:</strong> {{$job->getSalary()}}
+                <a href="/jobs/{{$job->id}}" class="hover:underline">
+                    <strong>{{$job->title}}:</strong> {{$job->salary}}
                 </a>
             </li>
         @endforeach
