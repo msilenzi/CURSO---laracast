@@ -9,10 +9,12 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/jobs', fn() => view('jobs', [
-    'title' => 'Jobs',
-    'jobs' => Job::all()
-]));
+Route::get('/jobs', function() {
+    return view('jobs', [
+        'title' => 'Jobs',
+        'jobs' => Job::with('employer')->get()
+    ]);
+});
 
 Route::get('/jobs/{id}', function ($id) {
     return view('job', [
