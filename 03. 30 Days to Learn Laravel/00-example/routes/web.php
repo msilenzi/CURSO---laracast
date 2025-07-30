@@ -51,3 +51,32 @@ Route::post('/jobs', function() {
 
     return redirect("/jobs/{$newJob['id']}");
 });
+
+// Edit a job:
+Route::get('/jobs/{id}/edit', function ($id) {
+    return view('jobs.edit', [
+        'title' => 'Job',
+        'job' => Job::find($id)
+    ]);
+});
+
+// Update a job:
+Route::patch('/jobs/{id}', function($id) {
+    request()->validate([
+        'title' => ['required', 'min:3'],
+        'salary' => ['required']
+    ]);
+
+   Job::findOrFail($id)->update([
+        'title' => request('title'),
+        'salary' => request('salary')
+   ]);
+
+    return redirect("/jobs/{$id}");
+});
+
+// Delete a job:
+Route::delete('/jobs/{id}', function($id) {
+    Job::findOrFail($id)->delete();
+    return redirect('/jobs');
+});
