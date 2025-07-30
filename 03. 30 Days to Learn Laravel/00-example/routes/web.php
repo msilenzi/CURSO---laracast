@@ -15,6 +15,7 @@ Route::get('/contact', function () {
  * Jobs ========================================================================
  */
 
+// Display all jobs:
 Route::get('/jobs', function() {
     return view('jobs.index', [
         'title' => 'Jobs',
@@ -22,10 +23,12 @@ Route::get('/jobs', function() {
     ]);
 });
 
+// Create a job:
 Route::get('/jobs/create', function() {
     return view('jobs.create', ['title' => 'Create Job']);
 });
 
+// Display one job:
 Route::get('/jobs/{id}', function ($id) {
     return view('jobs.show', [
         'title' => 'Job',
@@ -33,7 +36,13 @@ Route::get('/jobs/{id}', function ($id) {
     ]);
 });
 
+// Create a new job:
 Route::post('/jobs', function() {
+    request()->validate([
+        'title' => ['required', 'min:3'],
+        'salary' => ['required']
+    ]);
+
     $newJob = Job::create([
         'title' => request('title'),
         'salary' => request('salary'),
