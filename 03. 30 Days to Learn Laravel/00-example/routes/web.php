@@ -31,4 +31,5 @@ Route::controller(RegisterUserController::class)->group(function () {
 Route::controller(SessionController::class)->group(function () {
     Route::get('/auth/login', 'create');
     Route::post('/auth/login', 'store');
+    Route::post('/auth/logout', 'destroy');
 });

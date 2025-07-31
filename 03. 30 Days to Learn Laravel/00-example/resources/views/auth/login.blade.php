@@ -10,7 +10,7 @@
                     name="email"
                     type="text"
                     placeholder="jdoe@example.com"
-                    value="{{ old('email') }}"
+                    :value="old('email')"
                     required
                     autocomplete="email"
                     label="Email"
@@ -22,7 +22,6 @@
                     name="password"
                     type="password"
                     placeholder=""
-                    value="{{ old('password') }}"
                     required
                     autocomplete="new-password"
                     label="Password"

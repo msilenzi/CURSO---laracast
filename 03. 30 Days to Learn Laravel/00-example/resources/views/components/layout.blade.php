@@ -36,6 +36,16 @@
                         <x-nav-item href="/auth/login" :active="request()->is('auth/login')">Log In</x-nav-item>
                     </div>
                 @endguest
+
+                @auth
+                    {{-- Never use GET request to logout. This method allows CSRF protection: --}}
+                    <form method="POST" action="/auth/logout" >
+                        @csrf
+                        <button type="submit" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 font-medium text-sm">
+                            Log out
+                        </button>
+                    </form>
+                @endauth
             </div>
         </div>
     </nav>

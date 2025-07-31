@@ -10,7 +10,7 @@
                     name="first_name"
                     type="text"
                     placeholder="John"
-                    value="{{ old('first_name') }}"
+                    :value="old('first_name')"
                     required
                     autocomplete="given-name"
                     label="First Name"
@@ -22,7 +22,7 @@
                     name="last_name"
                     type="text"
                     placeholder="Doe"
-                    value="{{ old('last_name') }}"
+                    :value="old('last_name')"
                     required
                     autocomplete="family-name"
                     label="Last Name"
@@ -34,7 +34,7 @@
                     name="email"
                     type="text"
                     placeholder="jdoe@example.com"
-                    value="{{ old('email') }}"
+                    :value="old('email')"
                     required
                     autocomplete="email"
                     label="Email"
@@ -46,7 +46,6 @@
                     name="password"
                     type="password"
                     placeholder=""
-                    value="{{ old('password') }}"
                     required
                     autocomplete="new-password"
                     label="Password"
@@ -58,7 +57,6 @@
                     name="password_confirmation"
                     type="password"
                     placeholder=""
-                    value="{{ old('password_confirmation') }}"
                     required
                     autocomplete="new-password"
                     label="Confirm Password"

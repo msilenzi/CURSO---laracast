@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterUserController extends Controller {
     public function create() {
@@ -10,6 +12,17 @@ class RegisterUserController extends Controller {
     }
 
     public function store(Request $request) {
-        dd($request->all());
+        $validatedUserAttr = $request->validate([
+            'first_name' => ['required'],
+            'last_name'  => ['required'],
+            'email'      => ['required', 'email'],
+            'password'   => ['required', 'min:6', 'confirmed'],
+        ]);
+
+        $newUser = User::create($validatedUserAttr);
+
+        Auth::login($newUser);
+
+        return redirect('/jobs');
     }
 }
