@@ -12,28 +12,25 @@
 
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div class="sm:col-span-3">
-                        <label for="title" class="block text-sm/6 font-medium text-gray-900">Title</label>
-                        <div class="mt-2">
-                            <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
-                                <input id="title" type="text" name="title" placeholder="Shift Leader" value="{{ old('title') ?? $job->title }}" required class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" />
-                            </div>
-                            @error('title')
-                                {{-- $message exists only inside @error() --}}
-                                <small class="text-red-500">{{$message}}</small>
-                            @enderror
-                        </div>
+                        <x-form.group-text
+                            name="title"
+                            type="text"
+                            placeholder="Shift Leader"
+                            value="{{ old('title') ?? $job->title  }}"
+                            required
+                            label="Title"
+                        />
                     </div>
 
                     <div class="sm:col-span-3">
-                        <label for="salary" class="block text-sm/6 font-medium text-gray-900">Salary</label>
-                        <div class="mt-2">
-                            <div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
-                                <input id="salary" type="text" name="salary" placeholder="USD 50.000" value="{{ old('salary') ?? $job->salary }}" required class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" />
-                            </div>
-                            @error('salary')
-                                <small class="text-red-500">{{$message}}</small>
-                            @enderror
-                        </div>
+                        <x-form.group-text
+                            name="salary"
+                            type="text"
+                            placeholder="USD 50.000"
+                            value="{{  old('salary') ?? $job->salary  }}"
+                            required
+                            label="Salary"
+                        />
                     </div>
                 </div>
 
