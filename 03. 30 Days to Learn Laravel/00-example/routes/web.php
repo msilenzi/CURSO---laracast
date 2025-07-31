@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\RegisterUserController;
+use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home', ['title' => 'Home']);
@@ -20,3 +22,13 @@ Route::resource('jobs', JobController::class);
 //     Route::patch('/jobs/{job}', 'update');
 //     Route::delete('/jobs/{job}', 'destroy');
 // });
+
+Route::controller(RegisterUserController::class)->group(function () {
+    Route::get('/auth/register', 'create');
+    Route::post('/auth/register', 'store');
+});
+
+Route::controller(SessionController::class)->group(function () {
+    Route::get('/auth/login', 'create');
+    Route::post('/auth/login', 'store');
+});
