@@ -17,9 +17,9 @@ class SessionController extends Controller {
             'password' => ['required']
         ]);
 
-        if (!Auth::attempt([$validatedCredentials])) {
+        if (!Auth::attempt($validatedCredentials)) {
            throw ValidationException::withMessages([
-               'password' => 'Wrong password '
+               'password' => 'Wrong password'
            ]);
         }
 

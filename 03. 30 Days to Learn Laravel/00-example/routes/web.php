@@ -12,16 +12,32 @@ Route::view('/', 'home', ['title' => 'Home']);
 
 Route::view('/contact','contact', ['title' => 'Contact',]);
 
-Route::resource('jobs', JobController::class);
-// Route::controller(JobController::class)->group(function () {
-//     Route::get('/jobs', 'index');
-//     Route::get('/jobs/create', 'create');
-//     Route::post('/jobs', 'store');
-//     Route::get('/jobs/{job}', 'show');
-//     Route::get('/jobs/{job}/edit', 'edit');
-//     Route::patch('/jobs/{job}', 'update');
-//     Route::delete('/jobs/{job}', 'destroy');
-// });
+// Este atajo no permite definir políticas independientes para cada ruta:
+// Route::resource('jobs', JobController::class);
+
+Route::controller(JobController::class)->group(function () {
+    Route::get('/jobs', 'index');
+
+    Route::get('/jobs/create', 'create')
+        ->middleware('auth');
+
+    Route::post('/jobs', 'store')
+        ->middleware('auth');
+
+    Route::get('/jobs/{job}', 'show');
+
+    Route::get('/jobs/{job}/edit', 'edit')
+        ->middleware('auth')
+        ->can('update', 'job');
+
+    Route::patch('/jobs/{job}', 'update')
+        ->middleware('auth')
+        ->can('update', 'job');
+
+    Route::delete('/jobs/{job}', 'destroy')
+        ->middleware('auth')
+        ->can('destroy', 'job');
+});
 
 Route::controller(RegisterUserController::class)->group(function () {
     Route::get('/auth/register', 'create');
@@ -29,7 +45,7 @@ Route::controller(RegisterUserController::class)->group(function () {
 });
 
 Route::controller(SessionController::class)->group(function () {
-    Route::get('/auth/login', 'create');
+    Route::get('/auth/login', 'create')->name('login');
     Route::post('/auth/login', 'store');
     Route::post('/auth/logout', 'destroy');
 });

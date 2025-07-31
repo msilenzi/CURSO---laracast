@@ -55,7 +55,7 @@ class JobController extends Controller {
      * Show the form for editing the specified resource.
      */
     public function edit(Job $job) {
-        view('jobs.edit', [
+        return view('jobs.edit', [
             'title' => 'Job',
             'job' => $job
         ]);

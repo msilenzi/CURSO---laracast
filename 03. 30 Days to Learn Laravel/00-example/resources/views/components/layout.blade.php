@@ -1,4 +1,5 @@
-<!doctype html>
+@php use Illuminate\Support\Facades\Auth; @endphp
+    <!doctype html>
 <html lang="en" class="h-full bg-gray-100">
 
 <head>
@@ -38,13 +39,17 @@
                 @endguest
 
                 @auth
-                    {{-- Never use GET request to logout. This method allows CSRF protection: --}}
-                    <form method="POST" action="/auth/logout" >
-                        @csrf
-                        <button type="submit" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 font-medium text-sm">
-                            Log out
-                        </button>
-                    </form>
+                    <div class="flex justify-center items-center gap-2">
+                        <p class="text-gray-500">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</p>
+                        {{-- Never use GET request to logout. This method allows CSRF protection: --}}
+                        <form method="POST" action="/auth/logout">
+                            @csrf
+                            <button type="submit"
+                                    class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 font-medium text-sm inline-block">
+                                Log out
+                            </button>
+                        </form>
+                    </div>
                 @endauth
             </div>
         </div>
@@ -53,7 +58,9 @@
     <header class="bg-white shadow-sm">
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex items-center justify-between">
             <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{ $heading }}</h1>
-            <x-a-button href="/jobs/create">Create Job</x-a-button>
+            @auth
+                <x-a-button href="/jobs/create">Create Job</x-a-button>
+            @endauth
         </div>
     </header>
 
