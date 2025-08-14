@@ -1,16 +1,18 @@
-<x-panel class="flex-col text-center">
-    <div class="self-start text-sm">Laracasts</div>
+@props(['job'])
+
+<x-panel class="flex-col text-center h-full">
+    <div class="self-start text-sm">{{$job->employer->name}}</div>
 
     <div class="py-8 grow">
-        <h3 class="font-bold group-hover:text-blue-600 text-2xl transition-colors duration-200">Video Producer</h3>
-        <p class="text-sm mt-4">Full Time - From $60,000</p>
+        <h3 class="font-bold group-hover:text-blue-600 text-2xl transition-colors duration-200">{{$job->title}}</h3>
+        <p class="text-sm mt-4">{{$job->employment_type}} - From {{$job->salary}}</p>
     </div>
 
     <div class="flex justify-between items-center">
         <ul class="flex gap-2">
-            <li><x-tag size="small"></x-tag></li>
-            <li><x-tag size="small"></x-tag></li>
-            <li><x-tag size="small"></x-tag></li>
+            @foreach($job->tags as $tag)
+                <li><x-tag size="small">{{$tag->name}}</x-tag></li>
+            @endforeach
         </ul>
 
         <img src="https://placehold.co/42" alt="" class="rounded">

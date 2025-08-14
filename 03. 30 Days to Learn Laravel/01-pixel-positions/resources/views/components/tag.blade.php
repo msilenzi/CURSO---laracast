@@ -19,4 +19,4 @@
     }
 @endphp
 
-<a href="#tag" class="{{$classes}}">Frontend</a>
+<span class="{{$classes}}">{{ $slot }}</span>

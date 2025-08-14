@@ -14,36 +14,29 @@
 
         <section class="pt-10">
             <x-section-heading>Featured Jobs</x-section-heading>
-
             <ul class="grid lg:grid-cols-3 gap-8 mt-6">
-                <li><x-job-card /></li>
-                <li><x-job-card /></li>
-                <li><x-job-card /></li>
+                @foreach($jobs->filter(fn($j) => $j->featured) as $job)
+                    <!-- :$job === :job="$job" -->
+                    <li><x-job-card :$job /></li>
+                @endforeach
             </ul>
         </section>
 
         <section>
             <x-section-heading>Tags</x-section-heading>
             <ul class="flex gap-2 gap-y-3 mt-6 flex-wrap">
-                <li><x-tag></x-tag></li>
-                <li><x-tag></x-tag></li>
-                <li><x-tag></x-tag></li>
-                <li><x-tag></x-tag></li>
-                <li><x-tag></x-tag></li>
-                <li><x-tag></x-tag></li>
-                <li><x-tag></x-tag></li>
-                <li><x-tag></x-tag></li>
-                <li><x-tag></x-tag></li>
+                @foreach($tags as $tag)
+                    <li><x-tag>{{$tag->name}}</x-tag></li>
+                @endforeach
             </ul>
         </section>
 
         <section>
             <x-section-heading>Recent Jobs</x-section-heading>
-
             <ul class="mt-6 space-y-6">
-                <li><x-job-card-wide /></li>
-                <li><x-job-card-wide /></li>
-                <li><x-job-card-wide /></li>
+                @foreach($jobs as $job)
+                    <li><x-job-card-wide :$job /></li>
+                @endforeach
             </ul>
         </section>
     </div>
