@@ -30,10 +30,18 @@
             </ul>
         </nav>
 
-        <a href="#">Post a Job</a>
+        @auth
+            <a href="/jobs/create">Post a Job</a>
+        @endauth
+        @guest
+            <ul class="flex justify-center items-center gap-5">
+                <li><a href="/register">Sign Up</a></li>
+                <li><a href="/login">Log In</a></li>
+            </ul>
+        @endguest
     </header>
 
-    <main class="mt-10 max-w-[986px] container mx-auto">
+    <main class="mt-10 max-w-[986px] container mx-auto px-10">
         {{ $slot }}
     </main>
 </body>
