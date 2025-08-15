@@ -15,7 +15,7 @@
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-black text-white">
+<body class="bg-black text-white pb-8">
     <header class="flex justify-between items-center px-10 py-4 border-b border-white/10">
         <a href="#">
             <img src="{{Vite::asset('resources/images/logo.svg')}}" alt="Site Logo" />
