@@ -11,7 +11,11 @@
     <div class="flex justify-between items-center">
         <ul class="flex gap-2">
             @foreach($job->tags as $tag)
-                <li><x-tag size="small">{{$tag->name}}</x-tag></li>
+                <li>
+                    <a href="/tags/{{$tag->name}}">
+                        <x-tag size="small">{{$tag->name}}</x-tag>
+                    </a>
+                </li>
             @endforeach
         </ul>
 
