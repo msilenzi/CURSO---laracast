@@ -22,7 +22,11 @@
             <x-section-heading>Tags</x-section-heading>
             <ul class="flex gap-2 gap-y-3 mt-6 flex-wrap">
                 @foreach($tags as $tag)
-                    <li><x-tag>{{$tag->name}}</x-tag></li>
+                    <li>
+                        <a href="/tags/{{$tag->name}}">
+                            <x-tag>{{$tag->name}}</x-tag>
+                        </a>
+                    </li>
                 @endforeach
             </ul>
         </section>

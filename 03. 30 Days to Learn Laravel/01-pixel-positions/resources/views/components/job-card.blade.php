@@ -8,8 +8,8 @@
         <p class="text-sm mt-4">{{$job->employment_type}} - From {{$job->salary}}</p>
     </div>
 
-    <div class="flex justify-between items-center">
-        <ul class="flex gap-2">
+    <div class="flex justify-between items-center gap-4">
+        <ul class="flex gap-2 flex-wrap">
             @foreach($job->tags as $tag)
                 <li>
                     <a href="/tags/{{$tag->name}}">
