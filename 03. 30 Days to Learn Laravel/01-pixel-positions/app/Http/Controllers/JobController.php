@@ -13,7 +13,10 @@ use Illuminate\Validation\Rule;
 class JobController extends Controller {
     public function index() {
         return view('jobs.index', [
-            'jobs' => Job::latest()->get(),
+            // ALWAYS USE THE `WITH()` METHOD to eager load any relationship we require and avoid the n+1 problem.
+            // The `with()` method brings the model with the relationships in a single optimized query,
+            // instead of querying for each one separately.
+            'jobs' => Job::latest()->with(['employer', 'tags'])->get(),
             'tags' => Tag::all(),
         ]);
     }
