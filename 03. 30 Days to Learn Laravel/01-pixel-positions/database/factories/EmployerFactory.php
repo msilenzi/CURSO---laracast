@@ -16,9 +16,11 @@ class EmployerFactory extends Factory {
      * @return array<string, mixed>
      */
     public function definition(): array {
+        $name = fake()->company();
+        $textLogo = preg_replace('/[^A-Z]/', '', $name);
         return [
-            'name' => fake()->name,
-            'logo' => fake()->imageUrl(),
+            'name' => $name,
+            'logo' => "https://placehold.co/100/2a2a2a/ffffff?text=$textLogo",
             'user_id' => User::factory(),
         ];
     }

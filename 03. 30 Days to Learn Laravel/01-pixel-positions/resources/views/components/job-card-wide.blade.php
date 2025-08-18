@@ -1,7 +1,13 @@
 @props(['job'])
 
+@php
+    $imageSrc = str_starts_with($job->employer->logo, 'https://')
+                    ? $job->employer->logo
+                    : Illuminate\Support\Facades\Storage::url($job->employer->logo);
+@endphp
+
 <x-panel class="gap-4">
-    <img src="https://placehold.co/90" alt="" class="rounded-lg">
+    <img src="{{ $imageSrc }}" alt="Logo of {{$job->employer->name}}" width="80" height="80" class="rounded-lg w-[5rem] h-[5rem]">
 
     <div class="grow flex flex-col">
         <header class="flex justify-between items-center">

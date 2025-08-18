@@ -1,5 +1,11 @@
 @props(['job'])
 
+@php
+    $imageSrc = str_starts_with($job->employer->logo, 'https://')
+                    ? $job->employer->logo
+                    : Illuminate\Support\Facades\Storage::url($job->employer->logo);
+@endphp
+
 <x-panel class="flex-col text-center h-full">
     <div class="self-start text-sm">{{$job->employer->name}}</div>
 
@@ -21,6 +27,7 @@
             @endforeach
         </ul>
 
-        <img src="https://placehold.co/42" alt="" class="rounded">
+        <img src="{{ $imageSrc }}" alt="Logo of {{$job->employer->name}}" width="42"
+             height="42" class="rounded w-[2.625rem] h-[2.625rem]">
     </div>
 </x-panel>
