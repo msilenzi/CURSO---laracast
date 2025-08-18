@@ -31,7 +31,14 @@
         </nav>
 
         @auth
-            <a href="/jobs/create">Post a Job</a>
+            <div class="flex justify-center items-center gap-4">
+                <a href="/jobs/create">Post a Job</a>
+                <form action="/logout" method="POST">
+                    @csrf()
+                    @method('DELETE')
+                    <button type="submit" class="text-rose-600 text-xs cursor-pointer hover:text-rose-400 transition-colors transition-delay-200">Log Out</button>
+                </form>
+            </div>
         @endauth
         @guest
             <ul class="flex justify-center items-center gap-5">
