@@ -17,13 +17,13 @@
 </head>
 <body class="bg-black text-white pb-8">
     <header class="flex justify-between items-center px-10 py-4 border-b border-white/10">
-        <a href="#">
+        <a href="/">
             <img src="{{Vite::asset('resources/images/logo.svg')}}" alt="Site Logo" />
         </a>
 
         <nav>
             <ul class="flex justify-center items-center gap-10 font-bold">
-                <li><a href="#">Jobs</a></li>
+                <li><a href="/">Jobs</a></li>
                 <li><a href="#">Careers</a></li>
                 <li><a href="#">Salaries</a></li>
                 <li><a href="#">Companies</a></li>

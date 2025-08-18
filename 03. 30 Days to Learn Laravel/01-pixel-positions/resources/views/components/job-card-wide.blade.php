@@ -12,9 +12,10 @@
         </header>
 
         <div class="grow flex items-center">
-            <h2 class="font-bold text-xl group-hover:text-blue-600 transition-colors duration-200">{{$job->title}}</h2>
+            <a href="{{$job->url}}" target="_blank" rel="noopener noreferrer">
+                <h3 class="font-bold text-xl group-hover:text-blue-600 transition-colors duration-200">{{$job->title}}</h3>
+            </a>
         </div>
-
 
         <footer class="flex justify-between items-center gap-4">
             <p class="text-neutral-500">{{$job->employment_type}} - From {{$job->salary}}</p>

@@ -7,20 +7,24 @@ use App\Http\Controllers\SessionUserController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [JobController::class, 'index']);
+Route::controller(JobController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/jobs/create', 'create')->middleware('auth');
+    Route::post('/jobs', 'store')->middleware('auth');
+});
 
 Route::get('/search', SearchController::class);
 Route::get('/tags/{tag:name}', TagController::class);
 
 Route::controller(RegisteredUserController::class)
     ->middleware("guest")
-    ->group(function() {
+    ->group(function () {
         Route::get('/register', 'create');
         Route::post('/register', 'store');
     });
 
-Route::controller(SessionUserController::class)->group(function() {
-    Route::get('/login', 'create')->middleware("guest");
-    Route::post('/login', 'store')->middleware("guest");
-    Route::delete('/logout', 'destroy')->middleware("auth");
+Route::controller(SessionUserController::class)->group(function () {
+    Route::get('/login', 'create')->middleware('guest')->name('login');
+    Route::post('/login', 'store')->middleware('guest');
+    Route::delete('/logout', 'destroy')->middleware('auth');
 });
