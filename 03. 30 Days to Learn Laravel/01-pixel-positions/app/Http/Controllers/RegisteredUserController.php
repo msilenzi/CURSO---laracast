@@ -9,12 +9,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\File;
 use Illuminate\Validation\Rules\Password;
 
-class RegisteredUserController extends Controller {
-    public function create(): View {
+class RegisteredUserController extends Controller
+{
+    public function create(): View
+    {
         return view('auth.register');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $userAttributes = $request->validate([
             'name' => ['required'],
             'email' => ['required', 'email', 'unique:users,email'],
@@ -23,7 +26,7 @@ class RegisteredUserController extends Controller {
 
         $employerAttributes = $request->validate([
             'employer' => ['required'],
-            'logo' => ['required', File::types(['png', 'jpg', 'webp', 'svg'])]
+            'logo' => ['required', File::types(['png', 'jpg', 'webp', 'svg'])],
         ]);
 
         $user = User::create($userAttributes);
@@ -35,6 +38,7 @@ class RegisteredUserController extends Controller {
         ]);
 
         Auth::login($user);
+
         return redirect('/');
     }
 }

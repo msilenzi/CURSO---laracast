@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Job extends Model {
+class Job extends Model
+{
     /** @use HasFactory<JobFactory> */
     use HasFactory;
 
@@ -21,16 +22,19 @@ class Job extends Model {
         'featured',
     ];
 
-    public function employer(): BelongsTo {
+    public function employer(): BelongsTo
+    {
         return $this->belongsTo(Employer::class);
     }
 
-    public function tag(string $tagName): void {
+    public function tag(string $tagName): void
+    {
         $tag = Tag::firstOrCreate(['name' => trim(strtolower($tagName))]);
         $this->tags()->attach($tag);
     }
 
-    public function tags(): BelongsToMany {
+    public function tags(): BelongsToMany
+    {
         return $this->belongsToMany(Tag::class);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateJobRequest;
 use App\Models\Job;
 use App\Models\Tag;
 use Illuminate\Http\Request;
@@ -10,8 +9,10 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class JobController extends Controller {
-    public function index() {
+class JobController extends Controller
+{
+    public function index()
+    {
         return view('jobs.index', [
             // ALWAYS USE THE `WITH()` METHOD to eager load any relationship we require and avoid the n+1 problem.
             // The `with()` method brings the model with the relationships in a single optimized query,
@@ -21,11 +22,13 @@ class JobController extends Controller {
         ]);
     }
 
-    public function create() {
+    public function create()
+    {
         return view('jobs.create');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $attributes = $request->validate([
             'title' => ['required'],
             'salary' => ['required'],
@@ -33,7 +36,7 @@ class JobController extends Controller {
             'employment_type' => [
                 'required',
                 Rule::in(['Full Time', 'Part Time', 'Contract', 'Internship', 'Temporary']
-            )],
+                )],
             'url' => ['required', 'active_url'],
             'tags' => ['nullable'],
         ]);
