@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Learning</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <style>
+      html, body {
+        height: 100%;
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+      }
+
+      .text-red {
+        color: red;
+      }
+
+      .text-green {
+        color: green;
+      }
+    </style>
+
+  </head>
+  <body>
+    <div id="app">
+      <!-- 
+        v-bind:class binds the class attribte to the result of the expression.
+            <button v-bind:class="buttonClasses">Click Me!</button>
+
+        Since this is very common we can ommit the v-bind part:
+            <button :class="buttonClasses">Click Me!</button>
+      -->
+
+      <!--
+        v-on:[event] is to add events.
+            <button v-on:click="toggle">Click Me!</button>
+
+        @ is a shorthand for `v-on:`
+            <button @click="toggle">Click Me!</button>
+      -->
+      <button
+	      :class="active ? 'text-red' : 'text-green'"
+	      @click="toggleButtonColor"
+      >
+	      Click Me!
+      </button>
+    </div>
+
+    <script>
+      Vue.createApp({
+        // data() is the single source of truth for the application
+        data() {
+          return {
+            active: false
+          };
+        },
+
+        methods: {
+          toggleButtonColor() {
+            this.active = !this.active
+          }
+        }
+      }).mount("#app");
+    </script>
+  </body>
+</html>
