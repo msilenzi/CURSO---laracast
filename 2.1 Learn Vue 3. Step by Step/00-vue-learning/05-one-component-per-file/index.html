@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>Vue Learning</title>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="h-full grid place-items-center">
+    <div id="app">
+      <app-button>Something else</app-button>
+    </div>
+    
+    <script type="module">
+      import AppButton from './components/AppButton.js'
+
+      Vue.createApp({
+        components: {
+          'app-button': AppButton,
+        }
+      }).mount("#app");
+    </script>
+  </body>
+</html>
