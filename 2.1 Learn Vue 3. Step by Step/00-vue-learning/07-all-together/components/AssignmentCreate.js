@@ -1,24 +1,33 @@
 export default {
   template: `
-    <form class="relative" @submit.prevent="handleSubmit">
+    <form class="space-y-2" @submit.prevent="handleSubmit">
       <input
-        v-model="newAssingmentValue"
+        v-model="assingmentValue"
         type="text"
         placeholder="New assignment..."
-        class="bg-slate-700 rounded-lg transition duration-200 ease-in-out w-full block p-2 pr-18"
+        class="bg-slate-700 rounded-lg w-full block p-2"
       />
-      <button
-        type="submit"
-        class="absolute top-1 right-1 z-1 bg-slate-800 shadow py-2 px-2 rounded hover:bg-slate-900 transition duration-150 ease-in-out font-semibold text-xs uppercase"
-      >
-        Create
-      </button>
+      <div class="flex gap-2">
+        <input
+          v-model="tagValue"
+          type="text"
+          placeholder="Tag"
+          class="bg-slate-700 rounded-lg w-full p-2"
+        />
+        <button
+          type="submit"
+          class="bg-slate-800 py-2 px-2 rounded-lg hover:bg-slate-700/50 transition duration-150 ease-in-out font-semibold text-xs uppercase cursor-pointer"
+        >
+          Create
+        </button>
+      </div>
     </form>
   `,
 
   data() {
     return {
-      newAssingmentValue: "",
+      assingmentValue: "",
+      tagValue: "",
     }
   },
 
@@ -28,10 +37,13 @@ export default {
 
   methods: {
     handleSubmit() {
-      const trimmedValue = this.newAssingmentValue.trim();
-      if (trimmedValue.length !== 0) {
-        this.$emit('create', trimmedValue)
-        this.newAssingmentValue = "";
+      const trimmedValue = this.assingmentValue.trim();
+      const trimmedTag = this.tagValue.trim().toLowerCase();
+    
+      if (trimmedValue.length !== 0 && trimmedTag.length !== 0) {
+        this.$emit('create', trimmedValue, trimmedTag)
+        this.assingmentValue = "";
+        this.tagValue = "";
       }
     }
   }
