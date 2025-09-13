@@ -13,7 +13,7 @@ export default {
         <tag-selector
           tag="all"
           :currentTag="currentTag"
-          @selected="setCurrentTag"
+          @selected="currentTag = $event"
         />
 
         <tag-selector
@@ -21,7 +21,7 @@ export default {
           :key="tag"
           :tag="tag"
           :currentTag="currentTag"
-          @selected="setCurrentTag"
+          @selected="currentTag = $event" 
         />
       </div>
 
@@ -29,6 +29,7 @@ export default {
       <assignment-list title="Completed" :assignments="completed" />
     </div>
   `,
+  // $event es toma el valor que se paso como segundo parámetro del $emit.
 
   data() {
     return {
@@ -77,10 +78,6 @@ export default {
         completed: false,
         id: this.assignments.at(-1).id + 1,
       });
-    },
-
-    setCurrentTag(newCurrentTag) {
-      this.currentTag = newCurrentTag;
     },
   },
 };

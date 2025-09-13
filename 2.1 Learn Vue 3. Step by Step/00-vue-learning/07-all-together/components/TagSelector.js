@@ -1,7 +1,7 @@
 export default {
   template: `
     <button
-      @click="handleClick"
+      @click="$emit('selected', tag)"
       :class="[
         'py-1 px-2 rounded font-semibold text-xs uppercase transition duration-150 ease-in-out',
         tag === currentTag
@@ -17,10 +17,4 @@ export default {
     tag: String,
     currentTag: String,
   }, 
-
-  methods: {
-    handleClick() {
-      this.$emit('selected', this.tag)
-    }
-  }
 }
