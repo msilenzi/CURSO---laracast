@@ -4,14 +4,14 @@ export default {
   template: `
     <section>
       <h2 class="mb-2 text-xl font-bold">{{ title }}</h2>
-      <ul v-if="assignments.length">
+      <ul v-if="assignments.length" class="divide-y divide-slate-600 rounded-lg overflow-hidden">
         <assignment-list-item 
           v-for="assignment in assignments"
           :key="assignment.id"
           :assignment="assignment"
         />
       </ul>
-      <p v-else>There are no assignments</p>
+      <p v-else class="text-slate-500 italic">There are no assignments</p>
     </section>
   `,
 
